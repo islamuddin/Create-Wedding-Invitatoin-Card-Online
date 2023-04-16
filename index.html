@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./style.css">
+  <script src="./jspdf.umd.min.js" ></script>
+  <script src="./html2canvas.min.js" ></script>
 
+ 
+
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
 
@@ -123,6 +128,21 @@
     function printCard(){
         window.print();
     }
+
+    async function downloadCard() {
+  const card = document.querySelector(".card");
+  const canvas = await html2canvas(card, {
+    scale: 2,
+    useCORS: true,
+  });
+
+  window.jsPDF = window.jspdf.jsPDF;
+  const pdf = new jsPDF("p", "mm", [canvas.width * 0.264583, canvas.height * 0.264583]);
+  pdf.addImage(canvas.toDataURL("image/jpeg", 1.0), "JPEG", 0, 0, canvas.width * 0.264583, canvas.height * 0.264583);
+  pdf.save("invitation-card.pdf");
+}
+
+
   </script>
 </head>
 <body>
@@ -140,6 +160,8 @@
   </div>
   <button id="toggle-form" onclick="toggleForm()" style="position: fixed; top: 10px; right: 10px; z-index: 3;">📝</button>
   <button onclick="printCard()"  style="position: fixed;right: 77px;top: 7px;">🖨️</button>
+  <button onclick="downloadCard()" style="position: fixed;right: 142px;top: 5px;">⬇️</button>
+
 </div>
 
   <div class="card">
