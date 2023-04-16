@@ -150,6 +150,7 @@
 
 
 async function downloadCard() {
+  debugger;
   const card = document.querySelector(".card");
 
   // Temporarily change media query to 'all' for PDF rendering
@@ -164,9 +165,26 @@ async function downloadCard() {
   // Revert media query back to 'print'
   printStylesheet.textContent = printStylesheet.textContent.replace("@media all", "@media print");
   window.jsPDF = window.jspdf.jsPDF;
-  const pdf = new jsPDF("p", "mm", [canvas.width * 0.264583, canvas.height * 0.264583]);
+//   var pdf = new jsPDF('p', 'pt', 'letter');
+//  pdf.addHTML($('#pdfconvert')[0], function () {
+//      pdf.save('Test.pdf');
+//  });
+
+  // const pdf = new jsPDF(
+  //   "p", 
+  // "mm", 
+  // [canvas.width * 0.264583, canvas.height * 0.264583]
+  // );
+  const pdf = new jsPDF(
+    'p',
+    'mm',
+    'a4',
+    true
+  );
+
   pdf.addImage(canvas.toDataURL("image/jpeg", 1.0), "JPEG", 0, 0, canvas.width * 0.264583, canvas.height * 0.264583);
   pdf.save("invitation-card.pdf");
+
 }
 
 
@@ -191,7 +209,7 @@ async function downloadCard() {
 
 </div>
 
-  <div class="card">
+  <div class="card" id="pdfconvert">
     <div class="flower-frame"></div>
     <!-- Add other card elements and content -->
     <h1>
