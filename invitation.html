@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+      margin: 0;
+    }
+
+    .form-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 2;
+    }
+
+    .form-container.hidden {
+      display: none;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    input[type="text"], input[type="date"] {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      border: none;
+      background-color: #ffffff;
+      color: #070707;
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    .card {
+      /* Add other styles */
+    }
+
+    /* Add other styles */
+
+
+    .flower-frame {
+      /* Add other styles */
+    }
+
+    @media print {
+      .editform {
+        visibility: hidden;
+      }
+
+      /* .card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 40px;
+        box-sizing: border-box;
+        visibility: visible;
+      } */
+
+      .flower-frame {
+        background-image: url('http://localhost/_aiprojects/invitationcards/frame.png') !important;
+      }
+    }
+  </style>
+  <script>
+    function updateCard() {
+      const brideName = document.getElementById("bride-name").value;
+      const groomName = document.getElementById("groom-name").value;
+      const guestName = document.getElementById("guest-name").value;
+      const weddingDate = document.getElementById("wedding-date").value;
+      const weddingHall = document.getElementById("wedding-hall").value;
+      const hallAddress = document.getElementById("hall-address").value;
+
+      document.getElementById("bride-name-placeholder").textContent = brideName;
+      document.getElementById("groom-name-placeholder").textContent = groomName;
+      document.getElementById("guest-name-placeholder").textContent = guestName;
+      document.getElementById("wedding-date-placeholder").textContent = weddingDate;
+      document.getElementById("wedding-hall-placeholder").textContent = weddingHall;
+      document.getElementById("hall-address-placeholder").textContent = hallAddress;
+
+      toggleForm();
+    }
+
+    function toggleForm() {
+      const formContainer = document.getElementById("form-container");
+      formContainer.classList.toggle("hidden");
+    }
+    function printCard(){
+        window.print();
+    }
+  </script>
+</head>
+<body>
+    <div class="editform">
+  <div id="form-container" class="form-container hidden">
+    <form>
+      <input type="text" id="bride-name" placeholder="Bride Name">
+      <input type="text" id="groom-name" placeholder="Groom Name">
+      <input type="text" id="guest-name" placeholder="Guest Name">
+      <input type="date" id="wedding-date">
+      <input type="text" id="wedding-hall" placeholder="Wedding Hall Name">
+      <input type="text" id="hall-address" placeholder="Hall Address">
+      <button type="button" onclick="updateCard()">✅</button>
+    </form>
+  </div>
+  <button id="toggle-form" onclick="toggleForm()" style="position: fixed; top: 10px; right: 10px; z-index: 3;">📝</button>
+  <button onclick="printCard()"  style="position: fixed;right: 8px;top: 55px;">🖨️</button>
+</div>
+
+  <div class="card">
+    <div class="flower-frame"></div>
+    <!-- Add other card elements and content -->
+    <h1>
+      <span id="bride-name-placeholder">Jane</span> &
+      <span id="groom-name-placeholder">John</span>
+    </h1>
+    <h2>Wedding Invitation</h2>
+    <p>Dear <b id="guest-name-placeholder">[Guest Name]</b>,</p>
+    <p>We are excited to announce our wedding on</p>
+    <p><strong id="wedding-date-placeholder">25th December 2023</strong> time 8:00 PM</p>
+    <p>at</p>
+    <p><strong id="wedding-hall-placeholder">The Grand Ballroom</strong></p>
+    <p id="hall-address-placeholder">123 Main Street, City Name</p>
+    <p>Please join us in celebrating our special day!</p>
+  </div>
+</body>
+</html>
