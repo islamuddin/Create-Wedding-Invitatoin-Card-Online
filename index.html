@@ -80,10 +80,28 @@
       /* Add other styles */
     }
 
+    @media screen {
+      body * {
+        visibility: visible;
+      }
+    }
+
     @media print {
       .editform {
         visibility: hidden;
       }
+      .card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 40px;
+        box-sizing: border-box;
+        visibility: visible;
+      }
+
 
       /* .card {
         position: absolute;
@@ -129,13 +147,22 @@
         window.print();
     }
 
-    async function downloadCard() {
+
+
+async function downloadCard() {
   const card = document.querySelector(".card");
+
+  // Temporarily change media query to 'all' for PDF rendering
+  const printStylesheet = document.querySelector("style");
+  printStylesheet.textContent = printStylesheet.textContent.replace("@media print", "@media all");
+
   const canvas = await html2canvas(card, {
     scale: 2,
     useCORS: true,
   });
 
+  // Revert media query back to 'print'
+  printStylesheet.textContent = printStylesheet.textContent.replace("@media all", "@media print");
   window.jsPDF = window.jspdf.jsPDF;
   const pdf = new jsPDF("p", "mm", [canvas.width * 0.264583, canvas.height * 0.264583]);
   pdf.addImage(canvas.toDataURL("image/jpeg", 1.0), "JPEG", 0, 0, canvas.width * 0.264583, canvas.height * 0.264583);
