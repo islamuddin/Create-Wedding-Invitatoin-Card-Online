@@ -178,7 +178,7 @@ async function downloadCard() {
   const pdf = new jsPDF(
     'p',
     'mm',
-    'a4',
+    [canvas.width * 0.264583, canvas.height * 0.264583],
     true
   );
 
